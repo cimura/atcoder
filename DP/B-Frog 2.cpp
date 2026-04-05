@@ -30,7 +30,7 @@ using namespace std;
 int main() {
   int N, K; cin >> N >> K;
 
-  const long long INF = 10e7;
+  const long long INF = 10e10;
   vector<int> dp(N, INF);
   vector<int> h(N);
   dp[0] = 0;
