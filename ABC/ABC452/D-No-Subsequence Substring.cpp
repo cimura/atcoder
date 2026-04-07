@@ -30,7 +30,7 @@ int main() {
         s += S[i];
       }
     }
-    cout << s << endl;
+    //cout << s << endl;
     if (!s.empty() && !is_contain(s, T)) count++;
   }
   cout << count << endl;
