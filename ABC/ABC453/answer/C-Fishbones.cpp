@@ -29,8 +29,10 @@ int main() {
   //for (int i = 0; i < v.size(); ++i) {
   for (int j = 0; j < s_vect.size(); ++j) {
     string word = s_vect[j];
-    for (auto p: v) {
-      if (p.first == word.length()) {
+    for (int k = 0; k < word.size(); ++k) {
+      for (int a = 0; a < v.size(); ++a) {
+        pair<int, int> p = v[a];
+        if ()p.first
       }
     }
   }
