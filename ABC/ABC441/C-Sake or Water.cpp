@@ -13,14 +13,14 @@ int main() {
   vi a(n);
   rep(i, n) cin >> a[i];
 
-  sort(a.begin(), a.end());
-  int result = 0;
-  result += a.size() - k;
-  int drunk = 0;
-  rep(i, n) {
-    if (drunk > x) break;
+  sort(a.rbegin(), a.rend());
+  long long drunk = 0;
+  for (int i = n - k; i < n; ++i) {
     drunk += a[i];
-    result++;
+    if (drunk >= x) {
+      cout << i + 1 << endl;
+      return 0;
+    }
   }
-  cout << result << endl;
+  cout << -1 << endl;
 }
