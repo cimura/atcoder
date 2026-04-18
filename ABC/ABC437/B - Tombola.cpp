@@ -10,7 +10,7 @@ using namespace std;
 
 int main() {
   int h,w,n; cin >> h >> w >> n;
-  vector<vector<int>> v(h, vector<int>());
+  vector<vector<int>> v(h, vector<int>(w, 0));
 
   rep(i, h) {
     rep(j, w) {
@@ -20,7 +20,7 @@ int main() {
   vi b(n);
   rep(i, n) cin >> b[i];
 
-  int min_count = INT_MAX;
+  int max_count = INT_MIN;
   rep(i, h) {
     int cnt = 0;
     rep(j, w) {
@@ -28,7 +28,7 @@ int main() {
         cnt++;
       }
     }
-    min_count = min(cnt, min_count);
+    max_count = max(cnt, max_count);
   }
-  cout << min_count << endl;
+  cout << max_count << endl;
 }
