@@ -8,7 +8,7 @@ using namespace std;
 #define vs vector<string>
 #define INF 1000000000
 
-bool ok(vector<vector<bool>> v, int r, int c, int n) {
+bool ok(vector<vector<bool>>& v, int r, int c, int n) {
   if (r < 0 || r + 1 >= n || c < 0 || c + 1 >= n) return false;
   bool cur = v[r][c];
   bool right = v[r][c + 1];
@@ -20,6 +20,7 @@ bool ok(vector<vector<bool>> v, int r, int c, int n) {
 int main() {
   int n, m; cin >> n >> m;
   vector<vector<bool>> v(n, vector<bool>(n, true));
+  int count = 0;
   rep(i, m) {
     int r, c; cin >> r >> c;
     if (ok(v, --r, --c, n)) {
@@ -27,6 +28,8 @@ int main() {
       v[r][c + 1] = false;
       v[r + 1][c] = false;
       v[r + 1][c + 1] = false;
+      count++;
     }
   }
+  cout << count << endl;
 }

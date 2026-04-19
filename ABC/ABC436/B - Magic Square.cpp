@@ -10,17 +10,21 @@ using namespace std;
 
 int main() {
   int n; cin >> n;
-  vector<vector<int>> v(n, vector<int>(n, 0));
+  vector<vector<int>> v(n, vector<int>(n));
 
   int k = 1;
-  v[0][(n - 1) / 2] = k;
-  int x = 0, y = (n - 1) / 2;
-  rep(i, n * n - 1) {
-    if (v[(x - 1) % n][(y + 1) % n] == 0) {
-      v[(x - 1) % n][(y + 1) % n] = 1;
-    } else {
-      v[(x + 1) % n][y] = k + 1;
+  int r = 0, c = (n - 1) / 2;
+  rep(i, n * n) {
+    v[r][c] = k;
+    int nr = (r - 1 + n) % n;
+    int nc = (c + 1) % n;
+    if (v[nr][nc] != 0) {
+      nr = (r + 1) % n;
+      nc = c;
     }
+    r = nr;
+    c = nc;
+    k++;
   }
 
   rep(i, n) {

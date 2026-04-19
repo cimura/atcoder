@@ -8,8 +8,12 @@ using namespace std;
 #define vs vector<string>
 #define INF 1000000000
 
-using ll = long long
-
 int main() {
-  int n; cin >> n;
+  auto sum = [&](int a, int b) {
+    return a + b;
+  };
+
+  cout << sum(3, 4) << endl;
+  cout << sum(8, 4) << endl;
+  cout << sum(3, 12) << endl;
 }
