@@ -8,7 +8,7 @@ using namespace std;
 #define vs vector<string>
 #define INF 1000000000
 
-using ll = long long
+using ll = long long;
 
 int main() {
   int n; cin >> n;
