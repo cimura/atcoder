@@ -16,7 +16,8 @@ struct is_container : std::false_type {};
 
 template <typename T>
 struct is_container<T, std::void_t<decltype(std::begin(std::declval<T>())), decltype(std::end(std::declval<T>()))>>
-    : std::true_type {};
+  : std::true_type {
+};
 
 // 文字列そのものはコンテナ扱いしたくないので除外
 template <>
@@ -30,32 +31,50 @@ void debug_out(Head H, Tail... T);
 
 template <typename T>
 void print_val(const T& x) {
-    if constexpr (is_container<T>::value) {
-        std::cerr << "{";
-        bool first = true;
-        for (const auto& i : x) {
-            if (!first) std::cerr << ", ";
-            print_val(i); // 再帰的に中身を表示
-            first = false;
-        }
-        std::cerr << "}";
-    } else {
-        std::cerr << x;
+  if constexpr (is_container<T>::value) {
+    std::cerr << "{";
+    bool first = true;
+    for (const auto& i : x) {
+      if (!first) std::cerr << ", ";
+      print_val(i); // 再帰的に中身を表示
+      first = false;
     }
+    std::cerr << "}";
+  }
+  else {
+    std::cerr << x;
+  }
 }
 
 // 複数の引数を受け取れるようにするマクロ用の核
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
-    print_val(H);
-    if (sizeof...(T)) std::cerr << ", ";
-    debug_out(T...);
+  print_val(H);
+  if (sizeof...(T)) std::cerr << ", ";
+  debug_out(T...);
 }
 
 // 実行時に変数名も表示するマクロ
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
-
 int main() {
-  int n; cin >> n;
+  int n, a, b; cin >> n >> a >> b;
+  string s; cin >> s;
+  vi A(n + 1), B(n + 1);
+  rep(i, n) {
+    A[i + 1] = A[i] + (s[i] == 'a');
+    B[i + 1] = B[i] + (s[i] == 'b');
+  }
+
+  int ans = 0;
+  for (int l = 1; l <= n; ++l) {
+    auto it1 = lower_bound(A.begin() + l, A.end(), a + A[l - 1]);
+    int r_min = distance(A.begin(), it1);
+
+    auto it2 = lower_bound(B.begin() + l, B.end(), b + B[l - 1]);
+    int r_limit = distance(B.begin(), it2);
+
+    ans += max(0, r_limit - r_min);
+  }
+  cout << ans << endl;
 }
