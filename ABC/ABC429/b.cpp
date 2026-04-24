@@ -12,7 +12,18 @@ using ll = long long;
 
 int main() {
   int n, m; cin >> n >> m;
-  rep(i, n)rep(j,m) {
-    cout << "#" << endl;
+  vi a(n);
+  int sum = 0;
+  rep(i, n) {
+    cin >> a[i];
+    sum += a[i];
   }
+
+  rep(i, n) {
+    if (sum - a[i] == m) {
+      cout << "Yes" << endl;
+      return 0;
+    }
+  }
+  cout << "No" << endl;
 }
