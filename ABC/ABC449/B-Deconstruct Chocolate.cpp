@@ -9,22 +9,23 @@ int main() {
     int type, query; cin >> type >> query;
     int count = 0;
     if (type == 1) {
-      for (int y = 0; y < query; ++y) {
+      for (int y = h - 1; y >= h - query; --y) {
         for (int x = 0; x < w; ++x) {
           if (v[y][x]) count++;
           v[y][x] = 0;
         }
       }
-      cout << count << endl;
+      h = h - query;
     }
     else {
       for (int y = 0; y < h; ++y) {
-        for (int x = 0; x < query; ++x) {
+        for (int x = w - 1; x >= w - query; --x) {
           if (v[y][x]) count++;
           v[y][x] = 0;
         }
       }
-      cout << count << endl;
+      w = w - query;
     }
+    cout << count << endl;
   }
 }
