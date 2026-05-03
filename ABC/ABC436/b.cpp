@@ -57,36 +57,31 @@ void debug_out(Head H, Tail... T) {
 // 実行時に変数名も表示するマクロ
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
+
 int main() {
-  int n, q; cin >> n >> q;
-  vector<int> a(n);
-  vector<ll> s(n + 1);
+  int n; cin >> n;
+  vector<vector<int>> v(n, vector<int>(n));
 
-  rep(i, n) {
-    cin >> a[i];
-    s[i + 1] = s[i] + a[i];
-  }
+  int r = 0, c = (n - 1) / 2, k = 1;
 
-  int si = 0;
-  while (q--) {
-    int type; cin >> type;
-    if (type == 1) {
-      int c; cin >> c;
-      si = (si + c) % n;
+  v[r][c] = k;
+  rep(i, n * n - 1) {
+    if (v[(r - 1 + n) % n][(c + 1) % n] == 0) {
+      v[(r - 1 + n) % n][(c + 1) % n] = k + 1;
+      r = ((r - 1 + n) % n + n) % n;
+      c = (c + 1) % n;
     }
     else {
-      int l, r; cin >> l >> r;
-      l--; r--;
-      l = (l + si) % n;
-      r = (r + si) % n;
-      ll ans;
-      if (l <= r) {
-        ans = s[r + 1] - s[l];
-      }
-      else {
-        ans = s[n] - (s[l + 1] - s[r]);
-      }
-      cout << ans << endl;
+      v[(r + 1) % n][c] = k + 1;
+      r = (r + 1) % n;
     }
+    k++;
+  }
+
+  rep(i, n) {
+    rep(j, n) {
+      cout << v[i][j] << " ";
+    }
+    cout << endl;
   }
 }

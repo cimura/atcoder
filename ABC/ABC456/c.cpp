@@ -8,6 +8,17 @@ using namespace std;
 #define vs vector<string>
 #define INF 1000000000
 
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define rep(i, n) for (int i = 0; i < (n); ++i)
+#define vi vector<int>
+#define vll vector<long long>
+#define vs vector<string>
+#define INF 1000000000
+
 using ll = long long;
 
 // コンテナかどうかを判定するためのテンプレート（SFINAE）
@@ -58,35 +69,33 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  int n, q; cin >> n >> q;
-  vector<int> a(n);
-  vector<ll> s(n + 1);
+  string s; cin >> s;
+  int len = s.length();
 
-  rep(i, n) {
-    cin >> a[i];
-    s[i + 1] = s[i] + a[i];
-  }
-
-  int si = 0;
-  while (q--) {
-    int type; cin >> type;
-    if (type == 1) {
-      int c; cin >> c;
-      si = (si + c) % n;
+  // 1文字
+  ll ans = len;
+  int l = 0;
+  int prev = s[0], cur;
+  int i = 1;
+  while (1) {
+    if (i >= len) {
+      l++;
+      prev = s[l];
+      i = l + 1;
     }
-    else {
-      int l, r; cin >> l >> r;
-      l--; r--;
-      l = (l + si) % n;
-      r = (r + si) % n;
-      ll ans;
-      if (l <= r) {
-        ans = s[r + 1] - s[l];
-      }
-      else {
-        ans = s[n] - (s[l + 1] - s[r]);
-      }
-      cout << ans << endl;
+    if (i >= len) break;
+    cur = s[i];
+    cout << "cur: " << cur << ", prev: " << prev << endl;
+    if (prev == cur) {
+      l++;
+      prev = s[l];
+      i = l + 1;
+      continue;
     }
+    cout << "OK!" << endl;
+    ans++;
+    i++;
+    prev = cur;
   }
+  cout << ans % 998244353 << endl;
 }

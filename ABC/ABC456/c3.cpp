@@ -54,39 +54,30 @@ void debug_out(Head H, Tail... T) {
   debug_out(T...);
 }
 
+int func(int n) {
+  int ans = 0;
+  for (int i = 1; i <= n; ++i) {
+    ans += (n - i + 1);
+  }
+  //cout << "ans: " << ans << endl;
+  return ans;
+}
+
 // 実行時に変数名も表示するマクロ
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  int n, q; cin >> n >> q;
-  vector<int> a(n);
-  vector<ll> s(n + 1);
+  string s; cin >> s;
+  int len = s.length();
 
-  rep(i, n) {
-    cin >> a[i];
-    s[i + 1] = s[i] + a[i];
-  }
-
-  int si = 0;
-  while (q--) {
-    int type; cin >> type;
-    if (type == 1) {
-      int c; cin >> c;
-      si = (si + c) % n;
-    }
-    else {
-      int l, r; cin >> l >> r;
-      l--; r--;
-      l = (l + si) % n;
-      r = (r + si) % n;
-      ll ans;
-      if (l <= r) {
-        ans = s[r + 1] - s[l];
-      }
-      else {
-        ans = s[n] - (s[l + 1] - s[r]);
-      }
-      cout << ans << endl;
+  ll ans = 0;
+  int pos = 0;
+  for (int i = 0; i < len; ++i) {
+    if (i + 1 == len || s[i] == s[i + 1]) {
+      ans += (ll)(i - pos + 1) * (i - pos + 2) / 2;
+      pos = i+1;
     }
   }
+
+  cout << ans % 998244353 << endl;
 }
