@@ -58,24 +58,20 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  int n, q; cin >> n >> q;
-  vector<int> a(n);
-
-  rep(i, n) a[i] = 1;
-
-  int l = 0;
-  rep(i, q) {
-    int x, y;
-    cin >> x >> y;
-    --x; --y;
-    int ans = 0;
-    //debug_out(a);
-    while (l <= x) {
-      ans += a[l];
-      a[l] = 0;
-      l++;
+  int n; cin >> n;
+  int ans = 0;
+  vi skills(n + 1);
+  for (int i = 1; i <= n; ++i) {
+    int a, b; cin >> a >> b;
+    if (a == 0 && b == 0) {
+      ans++;
+      skills[i] = 1;
+      continue;
     }
-    a[y] += ans;
-    cout << ans << endl;
+    if (skills[a] == 1 || skills[b] == 1) {
+      ans++;
+      skills[i] = 1;
+    }
   }
+  cout << ans << endl;
 }

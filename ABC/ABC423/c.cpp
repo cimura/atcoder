@@ -58,9 +58,37 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  int n, l; cin >> n >> l;
-  vi a(n);
-  rep(i, n) cin >> a[i];
+  int n, R; cin >> n >> R;
+  --R;
+  vi L(n);
+  rep(i, n) cin >> L[i];
   
-  --l;
+  int left = 0, right = n - 1;
+  while (l[left] == 1) left++;
+  while (l[right] == 1) right--;
+
+  ll ans = 0;
+  if (r < left) {
+    // r to right
+    for (int i = r; i <= right; ++i) {
+      if (l[i] == 0) ans++;
+      if (l[i] == 1) ans+=2;
+    }
+  }
+  else if (r >= left && r <= right) {
+    // left to right
+    for (int i = left; i <= right; ++i) {
+      if (l[i] == 0) ans++;
+      if (l[i] == 1) ans+=2;
+    }
+  }
+  else {
+    // left to r
+    for (int i = left; i <= r; ++i) {
+      if (l[i] == 0) ans++;
+      if (l[i] == 1) ans+=2;
+    }
+  }
+
+  cout << ans << endl;
 }

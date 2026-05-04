@@ -16,7 +16,8 @@ struct is_container : std::false_type {};
 
 template <typename T>
 struct is_container<T, std::void_t<decltype(std::begin(std::declval<T>())), decltype(std::end(std::declval<T>()))>>
-    : std::true_type {};
+  : std::true_type {
+};
 
 // 文字列そのものはコンテナ扱いしたくないので除外
 template <>
@@ -30,30 +31,28 @@ void debug_out(Head H, Tail... T);
 
 template <typename T>
 void print_val(const T& x) {
-    if constexpr (is_container<T>::value) {
-        std::cerr << "{";
-        bool first = true;
-        for (const auto& i : x) {
-            if (!first) std::cerr << ", ";
-            print_val(i); // 再帰的に中身を表示
-            first = false;
-        }
-        std::cerr << "}";
-    } else {
-        std::cerr << x;
+  if constexpr (is_container<T>::value) {
+    std::cerr << "{";
+    bool first = true;
+    for (const auto& i : x) {
+      if (!first) std::cerr << ", ";
+      print_val(i); // 再帰的に中身を表示
+      first = false;
     }
+    std::cerr << "}";
+  }
+  else {
+    std::cerr << x;
+  }
 }
 
 // 複数の引数を受け取れるようにするマクロ用の核
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
-    print_val(H);
-    if (sizeof...(T)) std::cerr << ", ";
-    debug_out(T...);
+  print_val(H);
+  if (sizeof...(T)) std::cerr << ", ";
+  debug_out(T...);
 }
-
-// 実行時に変数名も表示するマクロ
-#define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int min3(int a, int b, int c) {
   int m = a;
@@ -62,6 +61,31 @@ int min3(int a, int b, int c) {
   return m;
 }
 
+int max3(int a, int b, int c) {
+  int m = a;
+  if (m < b) m = b;
+  if (m < c) m = c;
+  return m;
+}
+
+// 実行時に変数名も表示するマクロ
+#define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
+
 int main() {
-  int n; cin >> n;
+  int t; cin >> t;
+  while (t--) {
+    int a, b, c; cin >> a >> b >> c;
+    int ans = 0;
+    int min_value = min3(a, b, c);
+    a -= min_value;
+    b -= min_value;
+    c -= min_value;
+    if (a == 0 || c == 0) {
+      ans += min_value;
+      cout << ans << endl;
+      continue;
+    }
+    ans += min();
+    cout << ans << endl;
+  }
 }
