@@ -54,30 +54,34 @@ void debug_out(Head H, Tail... T) {
   debug_out(T...);
 }
 
-int func(int n) {
-  int ans = 0;
-  for (int i = 1; i <= n; ++i) {
-    ans += (n - i + 1);
-  }
-  //cout << "ans: " << ans << endl;
-  return ans;
-}
-
 // 実行時に変数名も表示するマクロ
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  int n, k; cin >> n >> k;
-  vector<pair<int, ll>> vp(n);
-  rep(i, n) {
-    int a; cin >> a;
-    vp[i] = { i,a };
-  }
-  sort(vp.begin(), vp.end());
+  ll n, k; cin >> n >> k;
+  --k;
+  vll a(n);
+  rep(i, n) cin >> a[i];
+  //sort(a.begin(), a.end());
 
-  int ai = 0;
-  while (1) {
-    vp[ai].second += ai + 1;
-    if (vp[ai+1].second < vp[ai].second) swap(vp[ai+1], vp[ai]);
+  auto judge = [&](ll x) {
+    ll sum = 0;
+    rep(i, n) {
+      if (x < a[i]) continue;
+      ll op = (x - a[i] + i) / (i+1);
+      sum += op;
+      if (sum <= k) return true;
+    }
+    return false;
+    };
+
+  ll left = 0;
+  ll right = (ll)1e18 + 1;
+  while (right - left > 1) {
+    ll mid = (right - left) / 2 + left;
+    cout << "mid: " << mid << endl;
+    if (judge(mid)) left = mid;
+    else right = mid;
   }
+  cout << left << endl;
 }
