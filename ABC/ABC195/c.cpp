@@ -6,7 +6,18 @@ using namespace std;
 #define vi vector<int>
 #define vll vector<long long>
 #define vs vector<string>
-#define INF 1010001000
+#define INF 1000000000
+
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define rep(i, n) for (int i = 0; i < (n); ++i)
+#define vi vector<int>
+#define vll vector<long long>
+#define vs vector<string>
+#define INF 1000000000
 
 using ll = long long;
 
@@ -54,36 +65,13 @@ void debug_out(Head H, Tail... T) {
   debug_out(T...);
 }
 
-int min3(int a, int b, int c) {
-  int m = a;
-  if (m > b) m = b;
-  if (m > c) m = c;
-  return m;
-}
-
-int max3(int a, int b, int c) {
-  int m = a;
-  if (m < b) m = b;
-  if (m < c) m = c;
-  return m;
-}
-
 // 実行時に変数名も表示するマクロ
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  int n; cin >> n;
-  vector<int> a(n+1);
-  for (int i = 1; i <= n; ++i) {
-    cin >> a[i];
+  ll n; cin >> n;
+  int ans = 0;
+  while (n > 1000) {
+    n /= 1000;
   }
-  ll ans = 0;
-  map<int, int> m;
-  for (int j = 1; j <= n; ++j) {
-    ll target = j - a[j];
-    ans += m[target];
-    m[j + a[j]]++;
-  }
-  cout << ans << endl;
 }
-

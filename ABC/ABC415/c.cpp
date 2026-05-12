@@ -72,22 +72,26 @@ int max3(int a, int b, int c) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  int n, k, x; cin >> n >> k >> x;
-  vs v(n);
-  rep(i, n) {
-    string s; cin >> s;
-    v[i] = s;
-  }
-
-  vector<string> cand;
-  auto f = [&](auto f, int i, string s) -> void {
-    if (i == k) {
-      cand.push_back(s);
-      return;
+  int t; cin >> t;
+  while (t--) {
+    int n; string s;
+    cin >> n >> s;
+    vector<bool> is_safe(1 << n + 1);
+    rep(i, 1 << n) {
+      if (s[i] == '0') is_safe[i + 1] = true;
     }
-    rep(j, n) f(f, i+1, s + v[j]);
-    };
-  f(f, 0, "");
-  sort(cand.begin(), cand.end());
-  cout << cand[x - 1] << endl;
+    vector<bool> reachable(1 << n);
+    reachable[0] = true;
+    for (int bit = 0; bit < (1 << n); ++bit) {
+      if (reachable[bit]) {
+        for (int i = 0; i < n; ++i) {
+          if (!(bit & 1 << i)) {
+            int next_bit = bit | (1 << i);
+            if (is_safe[next_bit]) reachable[next_bit] = true;
+          }
+        }
+      }
+    }
+    cout << (reachable[(1 << n) - 1] ? "Yes" : "No") << endl;
+  }
 }

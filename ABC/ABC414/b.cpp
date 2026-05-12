@@ -6,7 +6,7 @@ using namespace std;
 #define vi vector<int>
 #define vll vector<long long>
 #define vs vector<string>
-#define INF 1010001000
+#define INF 1000000000
 
 using ll = long long;
 
@@ -54,40 +54,24 @@ void debug_out(Head H, Tail... T) {
   debug_out(T...);
 }
 
-int min3(int a, int b, int c) {
-  int m = a;
-  if (m > b) m = b;
-  if (m > c) m = c;
-  return m;
-}
-
-int max3(int a, int b, int c) {
-  int m = a;
-  if (m < b) m = b;
-  if (m < c) m = c;
-  return m;
-}
-
 // 実行時に変数名も表示するマクロ
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  int n, k, x; cin >> n >> k >> x;
-  vs v(n);
+  int n; cin >> n;
+  int limit = 100;
+  string ans;
   rep(i, n) {
-    string s; cin >> s;
-    v[i] = s;
-  }
-
-  vector<string> cand;
-  auto f = [&](auto f, int i, string s) -> void {
-    if (i == k) {
-      cand.push_back(s);
-      return;
+    char c; ll l;
+    cin >> c >> l;
+    ll can_add = limit - ans.size();
+    if (l >= can_add) {
+      cout << "Too Long" << endl;
+      return 0;
     }
-    rep(j, n) f(f, i+1, s + v[j]);
-    };
-  f(f, 0, "");
-  sort(cand.begin(), cand.end());
-  cout << cand[x - 1] << endl;
+    else {
+      ans += string(l, c);
+    }
+  }
+  cout << ans << endl;
 }

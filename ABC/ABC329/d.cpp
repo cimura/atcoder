@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <iterator>
 
 using namespace std;
 
@@ -6,7 +7,7 @@ using namespace std;
 #define vi vector<int>
 #define vll vector<long long>
 #define vs vector<string>
-#define INF 1010001000
+#define INF 1000000000
 
 using ll = long long;
 
@@ -54,40 +55,33 @@ void debug_out(Head H, Tail... T) {
   debug_out(T...);
 }
 
-int min3(int a, int b, int c) {
-  int m = a;
-  if (m > b) m = b;
-  if (m > c) m = c;
-  return m;
-}
-
-int max3(int a, int b, int c) {
-  int m = a;
-  if (m < b) m = b;
-  if (m < c) m = c;
-  return m;
-}
-
 // 実行時に変数名も表示するマクロ
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  int n, k, x; cin >> n >> k >> x;
-  vs v(n);
-  rep(i, n) {
-    string s; cin >> s;
-    v[i] = s;
+  int n, m; cin >> n >> m;
+  vector<int> A(m);
+  rep(i, m) {
+    int a;
+    cin >> A[i];
   }
 
-  vector<string> cand;
-  auto f = [&](auto f, int i, string s) -> void {
-    if (i == k) {
-      cand.push_back(s);
-      return;
+  vector<int> cnt(n+1);
+  ll mx = -1;
+  rep(i, m) {
+    int cur = A[i];
+    cnt[cur]++;
+    if (mx == - 1) {
+      mx = cur;
     }
-    rep(j, n) f(f, i+1, s + v[j]);
-    };
-  f(f, 0, "");
-  sort(cand.begin(), cand.end());
-  cout << cand[x - 1] << endl;
+    else {
+      if (cnt[cur] > cnt[mx]) {
+        mx = cur;
+      }
+      else if (cnt[cur] == cnt[mx]) {
+        if (cur < mx) mx = cur;
+      }
+    }
+    cout << mx << endl;
+  }
 }
