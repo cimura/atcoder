@@ -70,11 +70,11 @@ void debug_out(Head H, Tail... T) {
 
 int main() {
   ll n; cin >> n;
-  ll limit = 1e3;
   ll ans = 0;
-  while (n > limit) {
-    ans += n - limit + 1;
-    limit *= 1e3;
-  }
+  if (n >= 1e3) ans += n - 999;
+  if (n >= 1e6) ans += n - 999999;
+  if (n >= 1e9) ans += n - 999999999;
+  if (n >= 1e12) ans += n - 999999999999;
+  if (n >= 1e15) ans += n - 999999999999999;
   cout << ans << endl;
 }

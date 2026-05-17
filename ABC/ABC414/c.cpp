@@ -57,31 +57,39 @@ void debug_out(Head H, Tail... T) {
 // 実行時に変数名も表示するマクロ
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
+
+
 int main() {
-  int n; cin >> n;
-  string s; cin >> s;
-
-  vector<pair<char, int>> vp;
-  vp.push_back({'?', 0});
-  rep(i, n) {
-    if (vp.back().first != s[i]) {
-      vp.push_back({s[i], 1});
-    } else {
-      vp.back().second++;
+  int a; string n; cin >> a >> n;
+  // judge pali
+  auto f = [&](ll num) {
+    string s = "";
+    while (num > 0) {
+      s += (num % a) + '0';
+      num /= a;
     }
-  }
-
+    string s_rev = s;
+    reverse(s_rev.begin(), s_rev.end());
+    return s == s_rev;
+    };
+  // convert nth
+  ll num = stoll(n);
   ll ans = 0;
-  vector<int> a(26);
-  for(auto p : vp) {
-    if (p.first == '?') continue;
-    int idx = p.first - 'a';
-    //cout << "f: " << p.first << ", s: " << p.second << endl;
-    a[idx] = max(a[idx], p.second);
-  }
+  for (int i = 1; i <= 1e6; ++i) {
+    string left = to_string(i);
+    string right = left;
+    reverse(right.begin(), right.end());
 
-  for (int value : a) {
-    ans += value;
+    string s1 = left + right.substr(1);
+    ll val1 = stoll(s1);
+    if (val1 <= num && f(val1)) {
+      ans += val1;
+    }
+    string s2 = left + right;
+    ll val2 = stoll(s2);
+    if (val2 <= num && f(val2)) {
+      ans += val2;
+    }
   }
   cout << ans << endl;
 }

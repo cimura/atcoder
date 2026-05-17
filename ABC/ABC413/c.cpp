@@ -8,17 +8,6 @@ using namespace std;
 #define vs vector<string>
 #define INF 1000000000
 
-
-#include <bits/stdc++.h>
-
-using namespace std;
-
-#define rep(i, n) for (int i = 0; i < (n); ++i)
-#define vi vector<int>
-#define vll vector<long long>
-#define vs vector<string>
-#define INF 1000000000
-
 using ll = long long;
 
 // コンテナかどうかを判定するためのテンプレート（SFINAE）
@@ -68,13 +57,34 @@ void debug_out(Head H, Tail... T) {
 // 実行時に変数名も表示するマクロ
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
+
+
 int main() {
-  ll n; cin >> n;
-  ll limit = 1e3;
-  ll ans = 0;
-  while (n > limit) {
-    ans += n - limit + 1;
-    limit *= 1e3;
+  int q; cin >> q;
+  // 個数, もの
+  queue<pair<int, int>> qp;
+  while (q--) {
+    int type; cin >> type;
+    //debug_out(qp);
+    if (type == 1) {
+      ll c, x; cin >> c >> x;
+      qp.push({c, x});
+    }
+    else if (type == 2) {
+      ll k; cin >> k;
+      ll ans = 0;
+      while (1) {
+        ll cnt = qp.front().first;
+        //cout << "cnt: " << cnt << endl;
+        ll element = qp.front().second;
+        //cout << "min(k, cnt) * element " << min(k, cnt) * element << endl;
+        ans += min(k, cnt) * element;
+        qp.front().first -= min(k, cnt);
+        k -= cnt;
+        if (k <= 0) break;
+        qp.pop();
+      }
+      cout << ans << endl;
+    }
   }
-  cout << ans << endl;
 }

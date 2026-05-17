@@ -69,12 +69,16 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  ll n; cin >> n;
-  ll limit = 1e3;
+  string s; cin >> s;
+  int len = s.length();
   ll ans = 0;
-  while (n > limit) {
-    ans += n - limit + 1;
-    limit *= 1e3;
+  for (int i = 0; i < len; ++i) {
+    char c = s[i];
+    if (c == 'C') {
+      ans += min(i, len - i - 1) + 1;
+      //cout << "+ " << min(i, len - i - 1) + 1 << endl;
+    }
   }
   cout << ans << endl;
 }
+

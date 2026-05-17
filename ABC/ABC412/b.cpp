@@ -8,17 +8,6 @@ using namespace std;
 #define vs vector<string>
 #define INF 1000000000
 
-
-#include <bits/stdc++.h>
-
-using namespace std;
-
-#define rep(i, n) for (int i = 0; i < (n); ++i)
-#define vi vector<int>
-#define vll vector<long long>
-#define vs vector<string>
-#define INF 1000000000
-
 using ll = long long;
 
 // コンテナかどうかを判定するためのテンプレート（SFINAE）
@@ -69,12 +58,19 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  ll n; cin >> n;
-  ll limit = 1e3;
-  ll ans = 0;
-  while (n > limit) {
-    ans += n - limit + 1;
-    limit *= 1e3;
+  string s, t; cin >> s >> t;
+  int cnt = 0;
+  int i;
+  for (i = 0; i < s.length(); ++i) {
+    if (isupper(s[i])) {
+      cnt++;
+      if (cnt >= 2) {
+        if (t.end() == find(t.begin(), t.end(), s[i - 1])) {
+          cout << "No" << endl;
+          return 0;
+        }
+      }
+    }
   }
-  cout << ans << endl;
+  cout << "Yes" << endl;
 }

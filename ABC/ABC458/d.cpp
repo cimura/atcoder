@@ -8,17 +8,6 @@ using namespace std;
 #define vs vector<string>
 #define INF 1000000000
 
-
-#include <bits/stdc++.h>
-
-using namespace std;
-
-#define rep(i, n) for (int i = 0; i < (n); ++i)
-#define vi vector<int>
-#define vll vector<long long>
-#define vs vector<string>
-#define INF 1000000000
-
 using ll = long long;
 
 // コンテナかどうかを判定するためのテンプレート（SFINAE）
@@ -65,16 +54,52 @@ void debug_out(Head H, Tail... T) {
   debug_out(T...);
 }
 
+int func(int n) {
+  int ans = 0;
+  for (int i = 1; i <= n; ++i) {
+    ans += (n - i + 1);
+  }
+  //cout << "ans: " << ans << endl;
+  return ans;
+}
+
+template <class T, class Container = std::vector<T>, class Compare = std::less<typename Container::value_type>>
+struct debug_priority_queue : std::priority_queue<T, Container, Compare> {
+  // 内部のコンテナ 'c' をそのまま返す関数を追加
+  const Container& get_container() const { return this->c; }
+};
+
 // 実行時に変数名も表示するマクロ
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  ll n; cin >> n;
-  ll limit = 1e3;
-  ll ans = 0;
-  while (n > limit) {
-    ans += n - limit + 1;
-    limit *= 1e3;
+  int x, q; cin >> x >> q;
+  priority_queue<int> half_before;
+  priority_queue<int, vector<int>, greater<int>> half_after;
+
+  half_before.push(x);
+  while (q--) {
+    rep(i, 2) {
+      int a; cin >> a;
+      if (a < x) {
+        half_before.push(a);
+        x = half_before.top();
+      }
+      else {
+        half_after.push(a);
+        x = half_after.top();
+      }
+    }
+    if (half_before.size() > half_after.size()) {
+      int n = half_before.top(); half_before.pop();
+      half_after.push(n);
+    }
+    if (half_before.size() < half_after.size()) {
+      int n = half_after.top(); half_after.pop();
+      half_before.push(n);
+    }
+
+    ll ans = half_before.top();
+    cout << ans << endl;
   }
-  cout << ans << endl;
 }
