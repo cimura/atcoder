@@ -57,26 +57,17 @@ void debug_out(Head H, Tail... T) {
 // 実行時に変数名も表示するマクロ
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
-int min3(int a, int b, int c) {
-  int m = a;
-  if (m > b) m = b;
-  if (m > c) m = c;
-  return m;
-}
-
 int main() {
-  int n, m; cin >> n >> m;
-  vector<string> v(n);
+  int n; cin >> n;
+  set<int> A;
   rep(i, n) {
-    cin >> v[i];
+    int a; cin >> a;
+    A.insert(a);
   }
 
-  set<vector<string>> s;
-  for (int i = 0; i < n - m + 1; ++i) for (int j = 0; j < n - m + 1; ++j) {
-    vector<string> vm;
-    for (int k = i; k < i + m; ++k) vm.push_back(v[k].substr(j, m));
-    //debug_out(vm);
-    s.insert(vm);
+  cout << A.size() << endl;
+  for (int num : A) {
+    cout << num << " ";
   }
-  cout << s.size() << endl;
+  cout << endl;
 }

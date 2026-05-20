@@ -65,18 +65,18 @@ int min3(int a, int b, int c) {
 }
 
 int main() {
-  int n, m; cin >> n >> m;
-  vector<string> v(n);
-  rep(i, n) {
-    cin >> v[i];
-  }
+  int h, w; cin >> h >> w;
+  vs v(h);
+  rep(i, h) cin >> v[i];
 
-  set<vector<string>> s;
-  for (int i = 0; i < n - m + 1; ++i) for (int j = 0; j < n - m + 1; ++j) {
-    vector<string> vm;
-    for (int k = i; k < i + m; ++k) vm.push_back(v[k].substr(j, m));
-    //debug_out(vm);
-    s.insert(vm);
+  int ans = 0;
+  rep(y1, h) rep(x1, w) {
+    rep(y2, h) rep(x2, w) {
+      if (abs(y2 - y1) + abs(x2 - x1) == 1 &&
+        y1 != 0 && y1 != h - 1 && x1 != 0 && x1 != w - 1 &&
+        y2 != 0 && y2 != h - 1 && x2 != 0 && x2 != w - 1)
+      ans++;
+    }
   }
-  cout << s.size() << endl;
+  cout << ans << endl;
 }

@@ -65,18 +65,20 @@ int min3(int a, int b, int c) {
 }
 
 int main() {
-  int n, m; cin >> n >> m;
-  vector<string> v(n);
-  rep(i, n) {
-    cin >> v[i];
+  string s; cin >> s;
+  int ans = 0;
+  int a = 0, b = 0, c = 0;
+  for (char ch : s) {
+    if (ch == 'A') {
+      a++;
+    }
+    else if (ch == 'B') {
+      b = min(a, b + 1);
+    }
+    else {
+      c = min(b, c + 1);
+    }
+    //cout << "a: " << a << ", b: " << b << ", c: " << c << endl;
   }
-
-  set<vector<string>> s;
-  for (int i = 0; i < n - m + 1; ++i) for (int j = 0; j < n - m + 1; ++j) {
-    vector<string> vm;
-    for (int k = i; k < i + m; ++k) vm.push_back(v[k].substr(j, m));
-    //debug_out(vm);
-    s.insert(vm);
-  }
-  cout << s.size() << endl;
+  cout << c << endl;
 }

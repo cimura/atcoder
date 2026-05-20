@@ -65,18 +65,31 @@ int min3(int a, int b, int c) {
 }
 
 int main() {
-  int n, m; cin >> n >> m;
-  vector<string> v(n);
-  rep(i, n) {
-    cin >> v[i];
+  string s; cin >> s;
+  queue<int> pos_a;
+  vector<int> pos_b;
+  queue<int> pos_c;
+  
+  for (int i = 0; i < s.size(); ++i) {
+    char c = s[i];
+    if (c == 'A') pos_a.push(i);
+    if (c == 'B') pos_b.push_back(i);
+    if (c == 'C') pos_c.push(i);
   }
-
-  set<vector<string>> s;
-  for (int i = 0; i < n - m + 1; ++i) for (int j = 0; j < n - m + 1; ++j) {
-    vector<string> vm;
-    for (int k = i; k < i + m; ++k) vm.push_back(v[k].substr(j, m));
-    //debug_out(vm);
-    s.insert(vm);
+  
+  int ans = 0;
+  for (int b : pos_b) {
+    //while (pos_a.size() && pos_a.front() > b) {
+    //  pos_a.pop();
+    //}
+    while (pos_c.size() && pos_c.front() < b) {
+      pos_c.pop();
+    }
+    if (pos_a.size() && pos_a.front() < b && pos_c.size()) {
+      pos_a.pop();
+      pos_c.pop();
+      ans++;
+    }
   }
-  cout << s.size() << endl;
+  cout << ans << endl;
 }
