@@ -58,11 +58,24 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  int n; cin >> n;
-  vi P(n);
-  rep(i, n) cin >> P[i];
-  int ans = 0;
-  rep(i, n) {
-    
+  int n, m; cin >> n >> m;
+  vector<vector<int>> to(n);
+  rep(i, m) {
+    int a, b; cin >> a >> b;
+    to[a].push_back(b);
+    to[b].push_back(a);
+  }
+  vector<bool> visited(n);
+  queue<int> q;
+
+  q.push(0);
+  while (q.size()) {
+    int v = q.front();
+    q.pop();
+    for (int e : to[v]) {
+      if (!visited[e]) {
+        visited[e] = true;
+      }
+    }
   }
 }

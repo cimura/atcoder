@@ -58,11 +58,7 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  int n; cin >> n;
-  vi P(n);
-  rep(i, n) cin >> P[i];
-  int ans = 0;
-  rep(i, n) {
-    
-  }
+  int h, w; cin >> h >> w;
+  vs vec(h);
+  rep(i, h) cin >> vec[i];
 }

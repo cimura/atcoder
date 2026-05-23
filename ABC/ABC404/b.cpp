@@ -59,10 +59,33 @@ void debug_out(Head H, Tail... T) {
 
 int main() {
   int n; cin >> n;
-  vi P(n);
-  rep(i, n) cin >> P[i];
-  int ans = 0;
+  vector<string> st(n);
+  vector<string> tt(n);
   rep(i, n) {
-    
+    cin >> st[i];
   }
+  rep(i, n) {
+    cin >> tt[i];
+  }
+
+  int ans = INT_MAX;
+  rep(ri, 4) {
+    {
+      int now = ri;
+      rep(i, n) rep(j, n) {
+        if (st[i][j] != tt[i][j]) {
+          now++;
+        }
+      }
+      ans = min(ans, now);
+    }
+    {
+      vector<string> ns = st;
+      rep(i, n) rep(j, n) {
+        ns[j][n - i - 1] = st[i][j];
+      }
+      st = ns;
+    }
+  }
+  cout << ans << endl;
 }

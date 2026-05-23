@@ -59,10 +59,18 @@ void debug_out(Head H, Tail... T) {
 
 int main() {
   int n; cin >> n;
-  vi P(n);
-  rep(i, n) cin >> P[i];
-  int ans = 0;
+  vi A(n);
+  vll sum(n + 1);
   rep(i, n) {
-    
+    cin >> A[i];
+    sum[i + 1] = sum[i] + A[i];
   }
+
+  ll ans = 0;
+  debug_out(sum);
+  for (int i = 0; i < n; ++i) {
+    ans += A[i] * (sum[n] - sum[i + 1]);
+    //cout << "ans: " << ans << endl;
+  }
+  cout << ans << endl;
 }

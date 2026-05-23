@@ -58,11 +58,23 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  int n; cin >> n;
-  vi P(n);
-  rep(i, n) cin >> P[i];
+  int n, m; cin >> n >> m;
+  vi A(n);
+  rep(i, n) cin >> A[i];
+
+  bool ok = true;
   int ans = 0;
   rep(i, n) {
-    
+    rep(j, m) {
+      if (find(A.begin(), A.end(), j + 1) == A.end()) {
+        //cout << j + 1 << endl;
+        ok = false;
+        break;
+      }
+    }
+    if (!ok) break;
+    ans++;
+    A.pop_back();
   }
+  cout << ans << endl;
 }
