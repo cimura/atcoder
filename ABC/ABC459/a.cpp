@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define rep(i, n) for (int i = 0; i < (n); ++i)
+#define vi vector<int>
+#define vll vector<long long>
+#define vs vector<string>
+#define INF 1000000000
+
+int main() {
+  int x; cin >> x;
+  string s = "HelloWorld";
+  rep(i, 10) {
+    if (i + 1 == x) continue;
+    cout << s[i];
+  }
+  cout << endl;
+}
