@@ -63,21 +63,26 @@ int min3(int a, int b, int c) {
 }
 
 int main() {
-  int n, m; cin >> n >> m;
-  vi A(n), B(m);
-  rep(i, n) cin >> A[i];
-  rep(i, m) cin >> B[i];
-  sort(A.begin(), A.end());
-  sort(B.begin(), B.end());
-
-  int ans = 0;
-  int j = 0;
+  int n, k, m; cin >> n >> k >> m;
+  vector<pair<ll, ll>> vp;
   rep(i, n) {
-    //cout << "a: " << A[i] << ", b: " << B[j] << endl;
-    if (j < m && 2 * A[i] >= B[j]) {
-      ans++;
-      j++;
-    }
+    ll c, v;
+    cin >> c >> v;
+    vp.emplace_back(v, c);
+  }
+  sort(vp.rbegin(), vp.rend());
+
+  set<ll> colors;
+  ll ans = 0;
+  int remain_cnt = k;
+  for (auto [value, color] : vp) {
+    //cout << "v: " << value << ", c: " << color << endl;
+    colors.insert(color);
+    if (colors.size() < m && m - colors.size() >= remain_cnt) continue;
+    ans += value;
+    //cout << "++v: " << value << endl;
+    remain_cnt--;
+    if (remain_cnt == 0) break;
   }
   cout << ans << endl;
 }
