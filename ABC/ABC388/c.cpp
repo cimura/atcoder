@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
+using namespace atcoder;
 using namespace std;
 
 #define rep(i, n) for (int i = 0; i < (n); ++i)
@@ -58,5 +60,14 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  ll n, k; cin >> n >> k;
+  int n; cin >> n;
+  vll A(n);
+  rep(i, n) cin >> A[i];
+
+  ll cnt = 0;
+  rep(i, n) {
+    auto it = lower_bound(A.begin() + i + 1, A.end(), 2 * A[i]);
+    cnt += distance(it, A.end());
+  }
+  cout << cnt << endl;
 }

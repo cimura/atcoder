@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
+using namespace atcoder;
 using namespace std;
 
 #define rep(i, n) for (int i = 0; i < (n); ++i)
@@ -58,5 +60,27 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  ll n, k; cin >> n >> k;
+  int n; cin >> n;
+  vector<pair<string, ll>> mp(n);
+  rep(i, n) {
+    string s; cin >> s;
+    ll t; cin >> t;
+    cout << ":: " << mp[i].first << endl;
+    if (mp[i].first == s) {
+      mp[i] = { s, -1 };
+      continue;
+    }
+    mp[i] = { s, t };
+  }
+  int ans = 0;
+  ll max_num = 0;
+  for (auto it = mp.begin(); it != mp.end(); ++it) {
+    ll num = (*it).second;
+    cout << "num: " << num << endl;
+    if (max_num < num) {
+      ans = distance(mp.begin(), it);
+      max_num = num;
+    }
+  }
+  cout << ans + 1 << endl;
 }

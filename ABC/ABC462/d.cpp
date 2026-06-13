@@ -58,5 +58,23 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  ll n, k; cin >> n >> k;
+  int n, d; cin >> n >> d;
+  vll S(1e6 + 1);
+  //vi S(30);
+  rep(i, n) {
+    int s, t; cin >> s >> t;
+    if (t - s < d) continue;
+    S[s] += 1;
+    S[t - d + 1] -= 1;
+  }
+  rep(i, S.size() - 1) {
+    S[i + 1] += S[i];
+  }
+  //debug_out(S);
+  ll ans = 0;
+  rep(i, S.size()) {
+    ll num = S[i];
+    ans += num * (num - 1) / 2;
+  }
+  cout << ans << endl;
 }

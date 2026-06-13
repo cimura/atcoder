@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
+using namespace atcoder;
 using namespace std;
 
 #define rep(i, n) for (int i = 0; i < (n); ++i)
@@ -58,5 +60,27 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  ll n, k; cin >> n >> k;
+  int h, w; cin >> h >> w;
+  vs S(h);
+  rep(i, h) cin >> S[i];
+  int li = h, ri = 0;
+  int lj = w, rj = 0;
+
+  rep(i, h) rep(j, w) {
+    if (S[i][j] == '#') {
+      li = min(li, i); ri = max(ri, i);
+      lj = min(lj, j); rj = max(rj, j);
+    }
+  }
+
+  for (int i = li; i <= ri; ++i) {
+    for (int j = lj; j <= rj; ++j) {
+      if (S[i][j] == '.') {
+        cout << "No\n";
+        return 0;
+      }
+    }
+  }
+  cout << "Yes\n";
+  return 0;
 }

@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
+using namespace atcoder;
 using namespace std;
 
 #define rep(i, n) for (int i = 0; i < (n); ++i)
@@ -58,5 +60,19 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  ll n, k; cin >> n >> k;
+  int k; cin >> k;
+  string s, t; cin >> s >> t;
+  int slen = s.length();
+  int tlen = t.length();
+  if (abs(s - t) > 1) {
+    cout << "No" << endl;
+  }
+
+  int sidx = 0;
+  int tidx = 0;
+  if (abs(s - t) == 1) {
+    while (sidx < slen && tidx < tlen) {
+      if (s[sidx] == t[tidx])
+    }
+  }
 }

@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
+using namespace atcoder;
 using namespace std;
 
 #define rep(i, n) for (int i = 0; i < (n); ++i)
@@ -58,5 +60,25 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  ll n, k; cin >> n >> k;
+  int n; cin >> n;
+  vi P(n), Q(n), looking(n);
+  // 人
+  rep(i, n) {
+    cin >> P[i];
+    P[i]--;
+  }
+  // ゼッケン
+  rep(i, n) cin >> Q[i];
+  vi person_of_zekken(n + 1);
+  rep(i, n) {
+    // ゼッケンをきている人
+    person_of_zekken[Q[i]] = i;
+  }
+
+  for (int zekken = 1; zekken <= n; ++zekken) {
+    int person = person_of_zekken[zekken];
+    int looking_person = P[person];
+    cout << Q[looking_person] << " ";
+  }
+  cout << endl;
 }

@@ -57,6 +57,33 @@ void debug_out(Head H, Tail... T) {
 // 実行時に変数名も表示するマクロ
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
+int min3(int a, int b, int c) {
+  int m = a;
+  if (m > b) m = b;
+  if (m > c) m = c;
+  return m;
+}
+
 int main() {
-  ll n, k; cin >> n >> k;
+  int n; cin >> n;
+  int x_min = INF, y_min = INF;
+  vector<pair<int, int>> vp;
+  rep(i, n) {
+    int x, y;
+    cin >> x >> y;
+    x_min = min(x_min, x);
+    y_min = min(y_min, y);
+    vp.emplace_back(x, y);
+  }
+
+  int ans = 0;
+  //cout << "xm: " << x_min << ", ym: " << y_min << endl;
+  for (auto v : vp) {
+    int xx = v.first;
+    int yy = v.second;
+    if (xx == x_min || yy == y_min) {
+      ans++;
+    }
+  }
+  cout << ans << endl;
 }

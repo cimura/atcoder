@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
+using namespace atcoder;
 using namespace std;
 
 #define rep(i, n) for (int i = 0; i < (n); ++i)
@@ -58,5 +60,23 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  ll n, k; cin >> n >> k;
+  int q; cin >> q;
+  deque<ll> vp;
+
+  ll head = 0;
+  while (q--) {
+    debug_out(vp);
+    int type; cin >> type;
+    if (type == 1) {
+      ll l; cin >> l;
+      vp.push_back(l);
+    }
+    else if (type == 2) {
+      head++;
+    }
+    else if (type == 3) {
+      int k; cin >> k;
+      cout << vp[head + k] << endl;
+    }
+  }
 }

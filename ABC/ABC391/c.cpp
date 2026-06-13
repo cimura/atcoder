@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 
+using namespace atcoder;
 using namespace std;
 
 #define rep(i, n) for (int i = 0; i < (n); ++i)
@@ -58,5 +60,27 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 
 int main() {
-  ll n, k; cin >> n >> k;
+  int n, q; cin >> n >> q;
+  vi bird_of_su(n);
+  vi cnt(n, 1);
+  rep(i, n) {
+    bird_of_su[i] = i;
+  }
+  int ans = 0;
+  while (q--) {
+    int type; cin >> type;
+    if (type == 1) {
+      int p, h; cin >> p >> h;
+      --p; --h;
+      int old = bird_of_su[p];
+      if (cnt[old] == 2) ans--;
+      cnt[old]--;
+      if (cnt[h] == 1) ans++;
+      cnt[h]++;
+      bird_of_su[p] = h;
+    }
+    else {
+      cout << ans << endl;
+    }
+  }
 }
